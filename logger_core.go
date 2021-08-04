@@ -11,11 +11,6 @@ func init() {
 	zerolog.TimeFieldFormat = "2006-01-02 15:04:05"
 }
 
-type Config struct {
-	Level      string
-	ServerName string
-}
-
 type logger struct {
 	err    error
 	logger zerolog.Logger
@@ -42,7 +37,7 @@ func (l *logger) SetLevel(level ...string) *logger {
 	logLevel, err := zerolog.ParseLevel(lev)
 	l.err = err
 	if err != nil {
-		zerolog.SetGlobalLevel(logLevel)
+		l.logger = l.logger.Level(logLevel)
 	}
 	return l
 }
