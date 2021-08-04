@@ -1,10 +1,7 @@
 package logger
 
 import (
-	"github.com/oraleval/ulog"
-	"github.com/oraleval/ulog/plugin/agent"
 	"github.com/rs/zerolog"
-	"io"
 	"os"
 )
 
@@ -19,16 +16,9 @@ type logger struct {
 	logger zerolog.Logger
 }
 
-func Init(logAgent ...string) *logger {
-	var logW []io.Writer
-	if len(logAgent) > 0 {
-		logAgentClient := agent.New(logAgent[0])
-		logW = append(logW, io.Writer(logAgentClient))
-	}
-	newLog := ulog.New(append(logW, os.Stdout)...)
+func Init() *logger {
 	return &logger{
-		logger: newLog.With().Caller().Logger(),
-		//logger: zerolog.New(os.Stdout).With().Caller().Timestamp().Logger(),
+		logger: zerolog.New(os.Stdout).With().Caller().Timestamp().Logger(),
 	}
 }
 
@@ -47,7 +37,6 @@ func (l *logger) SetLevel(level ...string) *logger {
 	logLevel, err := zerolog.ParseLevel(lev)
 	l.err = err
 	if err != nil {
-		//zerolog.SetGlobalLevel(logLevel)
 		l.logger = l.logger.Level(logLevel)
 	}
 	return l
