@@ -48,9 +48,12 @@ func (l *logger) SetLevel(level ...string) *logger {
 	l.err = err
 	if err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		//zerolog.SetGlobalLevel(logLevel)
 >>>>>>> 68773c0... update text cases
+=======
+>>>>>>> ea9ff4f5a848d0dd601c7f4c80dbc0a4ed5985df
 		l.logger = l.logger.Level(logLevel)
 	}
 	return l
